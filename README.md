@@ -12,3 +12,8 @@ All his tasks are taken into account which does not miss any work done by the em
 This process makes the deserved employee gets a good appraisal.
 
 The MainProgram is in the com.creativity.www package.
+The tables used are availableWorkforce,AssignTask,fillDetails.
+AssignTask - by Manager.
+fillDetails- by employee and approval done by manager.
+availableworkforce- any one can view the resource of a particular skill with a certain experience by giving experience and
+skill-set as input.

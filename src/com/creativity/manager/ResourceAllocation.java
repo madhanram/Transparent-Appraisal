@@ -1,15 +1,15 @@
 package com.creativity.manager;
 
 public class ResourceAllocation {
-	private int projectId;
+	private String projectId;
 	private int projectDeadline;
 	private int totalResources;
 	private int resourceBasedOnSkill;
 	private String skill;
-	public int getProjectId() {
+	public String getProjectId() {
 		return projectId;
 	}
-	public void setProjectId(int projectId) {
+	public void setProjectId(String projectId) {
 		this.projectId = projectId;
 	}
 	public int getProjectDeadline() {

@@ -7,8 +7,10 @@ import java.util.Scanner;
 import com.creativity.dto.AssignTaskDto;
 import com.creativity.dto.AvailableWorkforceDto;
 import com.creativity.dto.BridgeWorkforceResAlloc;
+import com.creativity.dto.ResourceAllocationDto;
 import com.creativity.dto.WorkTrackerDto;
 import com.creativity.employee.AvailableWorkforce;
+import com.creativity.manager.ResourceAllocation;
 import com.creativity.view.ViewWorkTracker;
 
 public class MainProgram {
@@ -27,6 +29,8 @@ public class MainProgram {
 		AvailableWorkforce availableWorkforce=new AvailableWorkforce();
 		AvailableWorkforceDto availableWorkforceDto=new AvailableWorkforceDto();
 		BridgeWorkforceResAlloc bridgeResource=new BridgeWorkforceResAlloc();
+		ResourceAllocation resource=new ResourceAllocation();
+		ResourceAllocationDto resourceAlloc=new ResourceAllocationDto();
 		String if_next_to_insert="";
 		String Completion_status="";
 		ArrayList<String> viewWorkTrackOp=new ArrayList<String>();
@@ -58,6 +62,16 @@ public class MainProgram {
 					if_next_to_insert=scan.next();
 					try {
 						assignValues.AssignValues(id,assign_Task.getEmpId(),assign_Task.getTaskName(),assign_Task.getNo_Of_Days(), assign_Task.getCompletion_Status(),if_next_to_insert,assign_Task.getManager_Rating(),Completion_status,mgrId);
+						if(assign_Task.getTaskName().substring(0, 4).equals("Proj")){
+						String s[]=resourceAlloc.UpdateResource(assign_Task.getTaskName(), assign_Task.getEmpId()).split("\\s+");		
+						System.out.println("resourceAlloc"+s[1]+"----------------"+s[0]);
+						if(s[0].equals("NoRecord") || s[1].equals("NoRecord") ){
+							System.out.println("Resource  for that particular skill is already been tagged to a project");
+						}
+						else{
+						resourceAlloc.ResourceAllocationUpdateAssignValues(assign_Task.getTaskName(), Integer.parseInt(s[1])-1,s[0]);
+						}
+						}
 					} 
 					catch (SQLException e) {
 						// TODO Auto-generated catch block
@@ -135,7 +149,7 @@ public class MainProgram {
 				workTrack.setCompletion_details(scan.next());
 				System.out.println("Enter Level Input ");
 				workTrack.setLevel_input(scan.nextInt());	
-				workTrackDto.EmpUpdateWorkTrackerAssign(id, workTrack.getTask_Name(), workTrack.getLevel_input());
+				workTrackDto.EmpUpdateWorkTrackerAssign(id, workTrack.getTask_Name(),workTrack.getCompletion_details(),workTrack.getLevel_input());
 				//workTrackDto.EmpUpdateWorkTrackerAssign(id, taskName, levelInput);
 			}
 		}
@@ -162,6 +176,17 @@ public class MainProgram {
 			}
 			}while(if_next_to_insert.equals("yes"));
 		}
+		else if(who_are_you.equals("ProjectResourceAllocator")){
+			System.out.println("Enter Project ID");
+			resource.setProjectId(scan.next());
+			System.out.println("Enter project Deadline");
+			resource.setProjectDeadline(scan.nextInt());
+			System.out.println("Enter resourceBasedOnSkill");
+			resource.setResourceBasedOnSkill(scan.nextInt());
+			System.out.println("Enter Skill set");
+			resource.setSkill(scan.next());
+			resourceAlloc.ResourceAllocationAssignValues(resource.getProjectId(), resource.getProjectDeadline(), resource.getResourceBasedOnSkill(), resource.getSkill());
+		}
 		else if(who_are_you.equals("ViewResource")){ 
 				try {
 					System.out.println("Enter Work Experience");
@@ -182,11 +207,13 @@ public class MainProgram {
 			    System.out.println("Enter Employee Id for which final rating is to be displayed");
 			    int empId=scan.nextInt();
 			    String finalRating=viewWorkTrack.YearEndRating(empId);
-			    System.out.println(finalRating);
+			    String ArrayRating[]=finalRating.split("\t");
+			    System.out.println("Employee Id:"+ArrayRating[1]+"\t"+"Rating:"+ArrayRating[0]);
 		}
 		else{
 			System.out.println("Invalid user");
 		}
+		//My third commit
 	}
 
 }

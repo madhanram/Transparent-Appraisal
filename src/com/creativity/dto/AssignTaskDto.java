@@ -75,6 +75,7 @@ public class AssignTaskDto {
 			preparedStmt.setString(4, task1);
 			// execute the preparedstatement
 			preparedStmt.execute();
+			//query ="Update AvailableWorkforce SET ifTagged=? where empId='"+empId+"'";
 		}
 	}
 

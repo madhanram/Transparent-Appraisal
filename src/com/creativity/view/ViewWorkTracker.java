@@ -74,7 +74,7 @@ public class ViewWorkTracker {
 		//	System.out.println("interRating"+interRating);
 			
 			finallyRating=(finalRating/interRating)*5;
-			System.out.println(finallyRating);
+			//System.out.println(finallyRating);
 			stringBuf.append((int)Math.floor(finallyRating));
 			stringBuf.append("\t");
 		//	int s1=rs.getInt(empId);

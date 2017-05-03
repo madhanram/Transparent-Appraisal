@@ -62,14 +62,15 @@ public class WorkTrackerDto {
 		}
 		
 	}
-	public void EmpUpdateWorkTrackerAssign(int id,String taskName,int levelInput) throws SQLException{
+	public void EmpUpdateWorkTrackerAssign(int id,String taskName,String completionDetails,int levelInput) throws SQLException{
 		Connection connection = null;
 		Statement statement = null; 
 		connection = MysqlJdbcConn.getConnection();
-		String query ="UPDATE fillDetails SET level_input=? WHERE TaskName=?";
+		String query ="UPDATE fillDetails SET level_input=?,Completion_details=? WHERE TaskName=?";
 		PreparedStatement preparedStmt = connection.prepareStatement(query);
 		preparedStmt.setInt(1,levelInput);
-		preparedStmt.setString(2,taskName);
+		preparedStmt.setString(2,completionDetails);
+		preparedStmt.setString(3,taskName);
 		// execute the preparedstatement
 		preparedStmt.execute();
 		try{

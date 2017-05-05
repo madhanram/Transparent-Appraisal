@@ -9,7 +9,6 @@ Manager and employee can see the YearEndRating by giving the employeeID as input
 based on all tasks he had done that particular year. 
 This helps improve performance of the employee. Also in this way the employee gets a correct appraisal based on his/her performance.
 All his tasks are taken into account which does not miss any work done by the employee to the company. 
-This process makes the deserved employee gets a good appraisal.
 
 The MainProgram is in the com.creativity.www package.
 The tables used are availableWorkforce,AssignTask,fillDetails.
